@@ -3,6 +3,7 @@
 
 .idea/
 *.iml
+*__pycache__
 # User-specific stuff
 .idea/**/workspace.xml
 .idea/**/tasks.xml

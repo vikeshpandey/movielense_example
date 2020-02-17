@@ -6,31 +6,28 @@ INTERACTION_DATASET = 'Interactions'
 
 
 if __name__ == '__main__':
-    print("""before running this code, ensure that your CSV file is formatted as per the format
-             desired by schema.json and IAM role has sufficient privliges, Also the s3 bucket 
-             should have a trust relationship with the role assumed byp personalize""")
 
     print("enter the name for your schema: ")
     schema_name = input()
     schema_arn = solution_handler.create_schema(schema_name, file_name)
 
-    print("enter the name for dataset group:")
+    print("enter the name for dataset group: ")
     dataset_group_name = input()
     dataset_group_arn = solution_handler.create_dataset_group(dataset_group_name)
 
-    print("enter the name of the dataset you want to create:")
+    print("enter the name of the dataset you want to create: ")
     dataset_name = input()
     dataset_arn = solution_handler.create_dataset(dataset_name, schema_arn, dataset_group_arn, INTERACTION_DATASET)
 
     print("enter the dataset import job name:")
     dataset_import_job_name = input()
-    print("enter the csv file location:")
+    print("enter the s3 location where csv file is present: ")
     csv_file_location = input()
-    print("enter the role arn personalize will assume:")
+    print("enter the role arn, personalize will assume: ")
     iam_role_for_personalize = input()
     solution_handler.import_dataset(dataset_import_job_name, dataset_arn, csv_file_location, iam_role_for_personalize)
 
-    print("enter the solution name:")
+    print("enter the solution name: ")
     solution_name = input()
     solution_arn = solution_handler.create_solution(solution_name, dataset_group_arn, perform_automl=True)
 
