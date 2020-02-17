@@ -1,9 +1,9 @@
-import boto3
-import utils
-from entity_type import EntityType
 import logging
 from time import sleep
 
+import boto3
+
+from entity_type import EntityType
 
 personalize = boto3.client('personalize')
 personalize_rt = boto3.client('personalize-runtime')
@@ -46,8 +46,8 @@ def create_dataset(dataset_name, schema_arn, dataset_group_arn, dataset_type):
     response = personalize.create_dataset(
         name=dataset_name,
         schemaArn=schema_arn,
-        datasetGroupArn = dataset_group_arn,
-        datasetType = dataset_type)
+        datasetGroupArn=dataset_group_arn,
+        datasetType=dataset_type)
     dataset_arn = response['datasetArn']
     log.info("dataset created with arn: %s", dataset_arn)
     return dataset_arn
@@ -64,7 +64,8 @@ def import_dataset(job_name, dataset_arn, csv_file_path, role_arn):
     dataset_import_job_arn = response['datasetImportJobArn']
     log.info('dataset import job created with arn: %s' + dataset_import_job_arn)
 
-    description = personalize.describe_dataset_import_job(datasetImportJobArn=dataset_import_job_arn)['datasetImportJob']
+    description = personalize.describe_dataset_import_job(datasetImportJobArn=dataset_import_job_arn)[
+        'datasetImportJob']
     current_status = description['status']
     wait_until_status_active(current_status, EntityType.DATASET_IMPORT_JOB, description['datasetImportJobArn'], 5)
 
@@ -125,12 +126,12 @@ def get_recommendations(campaign_arn, user_id):
         log.info(item['itemId'])
 
 
-########utility methods
+########utility methods###########
 def wait_until_status_active(current_status, entity_type, arn, time_in_seconds):
     while current_status != 'ACTIVE':
         log.info("status not active yet, will again in %s seconds", time_in_seconds)
         sleep(time_in_seconds)
-        time_in_seconds = time_in_seconds*2
+        time_in_seconds = time_in_seconds * 2
         current_status = get_status_from_type(entity_type, arn)
         log.info("status now: %s", current_status)
 

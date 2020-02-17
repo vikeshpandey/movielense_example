@@ -3,7 +3,7 @@
 how to execute this example?
 
 Pre-requisites:
-- a CSV file in an S3 bucket
+- a CSV file in an S3 bucket. you can download CSV file from : http://files.grouplens.org/datasets/movielens/ml-latest-small.zip
 - CSV file should have exactly 3 columns (USER_ID, ITEM_ID, TIMESTAMP) - it can have more columns as well but since the schema had
 only these columns(and these 3 are the mandatory ones) that is why CSV has to match the schema. Please edit the CSV to conform to schema. You can
 use any online tool to do that for you. One of the link to do that is: https://onlinecsvtools.com/delete-csv-columns
