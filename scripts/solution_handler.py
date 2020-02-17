@@ -130,7 +130,7 @@ def wait_until_status_active(current_status, entity_type, arn, time_in_seconds):
     while current_status != 'ACTIVE':
         log.info("status not active yet, will again in %s seconds", time_in_seconds)
         sleep(time_in_seconds)
-        time_in_seconds = time_in_seconds**2
+        time_in_seconds = time_in_seconds*2
         current_status = get_status_from_type(entity_type, arn)
         log.info("status now: %s", current_status)
 
